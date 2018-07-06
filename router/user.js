@@ -2,62 +2,68 @@ const joi = require('joi')
 joi.objectId = () => joi.string().hex().length(24)
 
 const validator = require('../middleware/validator')
-const todo = require('../controller').todo
+const user = require('../controller').user
 
 module.exports = async(router) => {
-  router.get('/api/todos', validator({
-    query: joi.object().keys({
-      status: joi.number().allow([1, 2])
-    })
+  router.get('/api/users', validator({
   }), async(req, res) => {
-    const status = req.query.status || 1
-    const resp = await todo.list(status)
+    const resp = await user.list()
     res.jsonp(resp)
   })
 
-  router.get('/api/todos/:_id', validator({
+  router.get('/api/users/:_id', validator({
     params: joi.object().keys({
       _id: joi.objectId().required()
     })
   }), async(req, res) => {
     const _id = req.params._id
-    const resp = await todo.get(_id)
+    const resp = await user.get(_id)
     res.jsonp(resp)
   })
 
-  router.post('/api/todos', validator({
+  router.post('/api/users', validator({
     body: joi.object().keys({
-      userId: joi.objectId().required(),
-      title: joi.string().required()
+      nickName: joi.string(),
+      gender: joi.string(),
+      avatarUrl: joi.string(),
+      city: joi.string(),
+      province: joi.string(),
+      country: joi.string(),
+      language: joi.string()
     })
   }), async(req, res) => {
     const payload = req.body
-    payload.status = 1
-    const resp = await todo.create(payload)
+    const resp = await user.create(payload)
     res.jsonp(resp)
   })
 
-  router.put('/api/todos/:_id', validator({
+  router.put('/api/users/:_id', validator({
     params: joi.object().keys({
       _id: joi.objectId().required()
     }),
     body: joi.object().keys({
-      title: joi.string().required()
+      nickName: joi.string(),
+      gender: joi.string(),
+      avatarUrl: joi.string(),
+      city: joi.string(),
+      province: joi.string(),
+      country: joi.string(),
+      language: joi.string()
     })
   }), async(req, res) => {
     const _id = req.params._id
     const payload = req.body
-    const resp = await todo.update(_id, payload)
+    const resp = await user.update(_id, payload)
     res.jsonp(resp)
   })
 
-  router.delete('/api/todos/:_id', validator({
+  router.delete('/api/users/:_id', validator({
     params: joi.object().keys({
       _id: joi.objectId().required()
     })
   }), async(req, res) => {
     const _id = req.params._id
-    const resp = await todo.delete(_id)
+    const resp = await user.delete(_id)
     res.jsonp(resp)
   })
 }

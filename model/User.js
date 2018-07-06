@@ -2,9 +2,13 @@ const mongoose = require('mongoose')
 const timestamps = require('mongoose-timestamp')
 
 const schema = new mongoose.Schema({
-  name: String,
-  sex: Number,
-  avatar: String,
+  nickName: String,
+  gender: Number,
+  avatarUrl: String,
+  city: String,
+  province: String,
+  country: String,
+  language: String,
   isDeleted: { type: Boolean, default: false }
 }, {
   collection: 'User'
