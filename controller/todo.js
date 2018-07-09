@@ -6,8 +6,8 @@ module.exports = {
   get: async(_id) => {
     return db.Todo.findOne({ _id: ObjectId(_id), isDeleted: false })
   },
-  list: async(status, limit, skip, sort) => {
-    return db.Todo.find({ status, isDeleted: false }).sort(sort).skip(skip).limit(limit)
+  list: async(status, userId, limit, skip, sort) => {
+    return db.Todo.find({ status, userId, isDeleted: false }).sort(sort).skip(skip).limit(limit)
   },
   create: async (payload) => {
     const resp = await db.Todo.create(payload)

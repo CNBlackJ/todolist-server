@@ -23,13 +23,14 @@ module.exports = async(router) => {
 
   router.post('/api/users', validator({
     body: joi.object().keys({
+      openId: joi.string().required(),
       nickName: joi.string(),
-      gender: joi.string(),
+      gender: joi.number(),
       avatarUrl: joi.string(),
-      city: joi.string(),
-      province: joi.string(),
-      country: joi.string(),
-      language: joi.string()
+      city: joi.string().allow(''),
+      province: joi.string().allow(''),
+      country: joi.string().allow(''),
+      language: joi.string().allow('')
     })
   }), async(req, res) => {
     const payload = req.body
@@ -43,7 +44,7 @@ module.exports = async(router) => {
     }),
     body: joi.object().keys({
       nickName: joi.string(),
-      gender: joi.string(),
+      gender: joi.number(),
       avatarUrl: joi.string(),
       city: joi.string(),
       province: joi.string(),

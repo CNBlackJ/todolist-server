@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const timestamps = require('mongoose-timestamp')
 
 const schema = new mongoose.Schema({
+  openId: String,
   nickName: String,
   gender: Number,
   avatarUrl: String,

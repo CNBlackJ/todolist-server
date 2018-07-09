@@ -10,8 +10,11 @@ module.exports = {
     return db.User.find({ isDeleted: false }).sort(sort).skip(skip).limit(limit)
   },
   create: async (payload) => {
-    const resp = await db.User.create(payload)
-    return resp
+    let user = await db.User.findOne({ openId: payload.openId })
+    if (!user) {
+      user = await db.User.create(payload)
+    }
+    return user
   },
   update: async (_id, paylaod) => {
     return db.User.findOneAndUpdate(
