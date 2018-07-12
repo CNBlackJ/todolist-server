@@ -6,8 +6,15 @@ const user = require('../controller').user
 
 module.exports = async(router) => {
   router.get('/api/users', validator({
+    query: joi.object().keys({
+      openId: joi.string()
+    })
   }), async(req, res) => {
-    const resp = await user.list()
+    const openId = req.query.openId
+    const condition = {
+      openId
+    }
+    const resp = await user.list(condition)
     res.jsonp(resp)
   })
 

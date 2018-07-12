@@ -6,8 +6,10 @@ module.exports = {
   get: async(_id) => {
     return db.User.findOne({ _id: ObjectId(_id), isDeleted: false })
   },
-  list: async(limit, skip, sort) => {
-    return db.User.find({ isDeleted: false }).sort(sort).skip(skip).limit(limit)
+  list: async(con, limit, skip, sort) => {
+    const condition = { isDeleted: false }
+    Object.assign(condition, con)
+    return db.User.find(condition).sort(sort).skip(skip).limit(limit)
   },
   create: async (payload) => {
     let user = await db.User.findOne({ openId: payload.openId })
