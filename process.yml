@@ -1,0 +1,11 @@
+apps:
+- script   : index.js
+  name     : 'todoList'
+  exec_mode: cluster
+  instance_var: 'NODE_APP_INSTANCE'
+  max_memory_restart: '60M'
+  env      :
+    NODE_ENV: development
+  env_production:
+    NODE_ENV: production
+    NODE_CONFIG_DIR: './config'
