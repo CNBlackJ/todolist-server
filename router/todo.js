@@ -1,6 +1,6 @@
 const joi = require('joi')
 joi.objectId = () => joi.string().hex().length(24)
-const ObjectId = require('mongoose').Types.ObjectId
+// const ObjectId = require('mongoose').Types.ObjectId
 
 const validator = require('../middleware/validator')
 const todo = require('../controller').todo
@@ -9,12 +9,12 @@ module.exports = async(router) => {
   router.get('/api/todos', validator({
     query: joi.object().keys({
       status: joi.number().allow([1, 2]),
-      userId: joi.objectId().required()
+      openId: joi.string().required()
     })
   }), async(req, res) => {
     const status = req.query.status || 1
-    const userId = req.query.userId
-    const resp = await todo.list(status, ObjectId(userId))
+    const openId = req.query.openId
+    const resp = await todo.list(status, openId)
     res.jsonp(resp)
   })
 
