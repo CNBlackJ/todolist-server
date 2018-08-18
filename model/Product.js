@@ -9,6 +9,10 @@ const schema = new mongoose.Schema({
   originalPrice: Number,
   types: [ String ],
   sales: Number,
+  descriptions: {
+    content: String,
+    imgs: [ String ]
+  },
   shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop' },
   isDeleted: { type: Boolean, default: false }
 }, {
